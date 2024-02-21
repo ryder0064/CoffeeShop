@@ -1,5 +1,5 @@
-import 'package:coffee_shop/src/features/products_list/product_list_screen.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
+import 'package:coffee_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -7,10 +7,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: goRouter,
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
-      home: const ProductsListScreen(),
       onGenerateTitle: (BuildContext context) => 'Coffee Shop'.hardcoded,
       theme: ThemeData(
         useMaterial3: true,
