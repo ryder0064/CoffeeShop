@@ -2,8 +2,11 @@ import 'package:coffee_shop/src/app.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
   registerErrorHandlers();
   runApp(const MyApp());
 }

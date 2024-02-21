@@ -1,5 +1,6 @@
 import 'package:coffee_shop/src/constants/app_sizes.dart';
 import 'package:coffee_shop/src/features/shopping_cart/shopping_cart_screen.dart';
+import 'package:coffee_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,7 +18,7 @@ class ShoppingCartIcon extends StatelessWidget {
           child: IconButton(
             key: shoppingCartIconKey,
             icon: const Icon(Icons.shopping_cart),
-            onPressed: () => GoRouter.of(context).go('/cart'),
+            onPressed: () => context.goNamed(AppRoute.cart.name),
           ),
         ),
         if (cartItemsCount > 0)
