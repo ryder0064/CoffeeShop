@@ -1,5 +1,8 @@
+import 'dart:js';
+
 import 'package:coffee_shop/src/features/account/account_screen.dart';
 import 'package:coffee_shop/src/features/order_list/orders_list_screen.dart';
+import 'package:coffee_shop/src/features/product_page/product_screen.dart';
 import 'package:coffee_shop/src/features/products_list/product_list_screen.dart';
 import 'package:coffee_shop/src/features/shopping_cart/shopping_cart_screen.dart';
 import 'package:coffee_shop/src/features/sign_in/email_password_sign_in_screen.dart';
@@ -9,6 +12,7 @@ import 'package:go_router/go_router.dart';
 
 enum AppRoute {
   home,
+  product,
   cart,
   orders,
   account,
@@ -24,6 +28,14 @@ final goRouter = GoRouter(
       name: AppRoute.home.name,
       builder: (context, state) => const ProductsListScreen(),
       routes: [
+        GoRoute(
+          path: 'product/:id',
+          name: AppRoute.product.name,
+          builder: (context, state) {
+            final productId = state.pathParameters['id']!;
+            return ProductScreen(productId: productId);
+          },
+        ),
         GoRoute(
           path: 'cart',
           name: AppRoute.cart.name,
