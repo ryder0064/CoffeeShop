@@ -1,6 +1,5 @@
-import 'dart:js';
-
 import 'package:coffee_shop/src/features/account/account_screen.dart';
+import 'package:coffee_shop/src/features/not_found/not_found_screen.dart';
 import 'package:coffee_shop/src/features/order_list/orders_list_screen.dart';
 import 'package:coffee_shop/src/features/product_page/product_screen.dart';
 import 'package:coffee_shop/src/features/products_list/product_list_screen.dart';
@@ -77,4 +76,5 @@ final goRouter = GoRouter(
       ],
     ),
   ],
+  errorBuilder: (context, state) => const NotFoundScreen(),
 );
