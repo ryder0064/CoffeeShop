@@ -1,5 +1,6 @@
 import 'package:coffee_shop/src/constants/test_products.dart';
 import 'package:coffee_shop/src/features/products/domain/product.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FakeProductsRepository {
   FakeProductsRepository._();
@@ -29,3 +30,7 @@ class FakeProductsRepository {
         .map((products) => products.firstWhere((product) => product.id == id));
   }
 }
+
+final productRepositoryProvider = Provider<FakeProductsRepository>((ref) {
+  return FakeProductsRepository.instance;
+});
