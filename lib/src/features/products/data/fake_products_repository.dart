@@ -30,3 +30,13 @@ class FakeProductsRepository {
 final productRepositoryProvider = Provider<FakeProductsRepository>((ref) {
   return FakeProductsRepository();
 });
+
+final productsListStreamProvider = StreamProvider<List<Product>>((ref) {
+  final productRepository = ref.watch(productRepositoryProvider);
+  return productRepository.watchProductsList();
+});
+
+final productsListFutureProvider = FutureProvider<List<Product>>((ref) {
+  final productRepository = ref.watch(productRepositoryProvider);
+  return productRepository.fetchProductsList();
+});
