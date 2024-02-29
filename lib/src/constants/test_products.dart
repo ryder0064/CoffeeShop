@@ -1,4 +1,4 @@
-import 'package:coffee_shop/src/models/product.dart';
+import 'package:coffee_shop/src/features/products/domain/product.dart';
 
 /// Test products to be used until a data source is implemented
 const kTestProducts = [
