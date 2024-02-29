@@ -13,6 +13,7 @@ import 'package:coffee_shop/src/features/reviews/presentation/product_reviews/pr
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:coffee_shop/src/utils/currency_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key, required this.productId});
@@ -20,29 +21,33 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Read from data source
-    final product = FakeProductsRepository.instance.getProduct(productId);
     return Scaffold(
-      appBar: const HomeAppBar(),
-      body: product == null
-          ? EmptyPlaceholderWidget(
-              message: 'Product not found'.hardcoded,
-            )
-          : CustomScrollView(
-              slivers: [
-                ResponsiveSliverCenter(
-                  padding: const EdgeInsets.all(Sizes.p16),
-                  child: ProductDetails(product: product),
-                ),
-                ProductReviewsList(productId: productId),
-              ],
-            ),
-    );
+        appBar: const HomeAppBar(),
+        body: Consumer(
+          builder: (context, ref, _) {
+            final productsRepository = ref.watch(productRepositoryProvider);
+            final product = productsRepository.getProduct(productId);
+            return product == null
+                ? EmptyPlaceholderWidget(
+                    message: 'Product not found'.hardcoded,
+                  )
+                : CustomScrollView(
+                    slivers: [
+                      ResponsiveSliverCenter(
+                        padding: const EdgeInsets.all(Sizes.p16),
+                        child: ProductDetails(product: product),
+                      ),
+                      ProductReviewsList(productId: productId),
+                    ],
+                  );
+          },
+        ));
   }
 }
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key, required this.product});
+
   final Product product;
 
   @override

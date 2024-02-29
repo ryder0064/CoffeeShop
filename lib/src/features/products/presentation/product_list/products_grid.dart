@@ -1,22 +1,22 @@
 import 'dart:math';
 
 import 'package:coffee_shop/src/constants/app_sizes.dart';
-import 'package:coffee_shop/src/constants/test_products.dart';
 import 'package:coffee_shop/src/features/products/data/fake_products_repository.dart';
 import 'package:coffee_shop/src/features/products/presentation/product_list/product_card.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:coffee_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class ProductsGrid extends StatelessWidget {
+class ProductsGrid extends ConsumerWidget {
   const ProductsGrid({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: Read from data source
-    final products = FakeProductsRepository.instance.getProductsList();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final productsRepository = ref.watch(productRepositoryProvider);
+    final products = productsRepository.getProductsList();
     return products.isEmpty
         ? Center(
             child: Text(

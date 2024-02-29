@@ -3,10 +3,6 @@ import 'package:coffee_shop/src/features/products/domain/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FakeProductsRepository {
-  FakeProductsRepository._();
-
-  static FakeProductsRepository instance = FakeProductsRepository._();
-
   final List<Product> _products = kTestProducts;
 
   List<Product> getProductsList() {
@@ -32,5 +28,5 @@ class FakeProductsRepository {
 }
 
 final productRepositoryProvider = Provider<FakeProductsRepository>((ref) {
-  return FakeProductsRepository.instance;
+  return FakeProductsRepository();
 });
