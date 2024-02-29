@@ -1,16 +1,16 @@
 import 'package:coffee_shop/src/common_widgets/custom_image.dart';
+import 'package:coffee_shop/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_center.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:coffee_shop/src/constants/app_sizes.dart';
-import 'package:coffee_shop/src/constants/test_products.dart';
-import 'package:coffee_shop/src/features/products/presentation/home_app_bar/home_app_bar.dart';
-import 'package:coffee_shop/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:coffee_shop/src/features/cart/presentation/add_to_cart/add_to_cart_widget.dart';
+import 'package:coffee_shop/src/features/products/data/fake_products_repository.dart';
+import 'package:coffee_shop/src/features/products/domain/product.dart';
+import 'package:coffee_shop/src/features/products/presentation/home_app_bar/home_app_bar.dart';
 import 'package:coffee_shop/src/features/products/presentation/product_screen/leave_review_action.dart';
 import 'package:coffee_shop/src/features/products/presentation/product_screen/product_average_rating.dart';
 import 'package:coffee_shop/src/features/reviews/presentation/product_reviews/product_reviews_list.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
-import 'package:coffee_shop/src/features/products/domain/product.dart';
 import 'package:coffee_shop/src/utils/currency_formatter.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +21,7 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Read from data source
-    final product =
-        kTestProducts.firstWhere((product) => product.id == productId);
+    final product = FakeProductsRepository.instance.getProduct(productId);
     return Scaffold(
       appBar: const HomeAppBar(),
       body: product == null

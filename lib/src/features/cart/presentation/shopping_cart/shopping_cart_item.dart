@@ -4,6 +4,7 @@ import 'package:coffee_shop/src/common_widgets/item_quantity_selector.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:coffee_shop/src/constants/app_sizes.dart';
 import 'package:coffee_shop/src/constants/test_products.dart';
+import 'package:coffee_shop/src/features/products/data/fake_products_repository.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:coffee_shop/src/features/cart/domain/item.dart';
 import 'package:coffee_shop/src/features/products/domain/product.dart';
@@ -30,8 +31,7 @@ class ShoppingCartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Read from data source
-    final product =
-        kTestProducts.firstWhere((product) => product.id == item.productId);
+    final product = FakeProductsRepository.instance.getProduct(item.productId)!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Sizes.p8),
       child: Card(
