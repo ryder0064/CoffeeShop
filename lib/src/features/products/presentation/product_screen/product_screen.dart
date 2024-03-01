@@ -1,5 +1,6 @@
 import 'package:coffee_shop/src/common_widgets/custom_image.dart';
 import 'package:coffee_shop/src/common_widgets/empty_placeholder_widget.dart';
+import 'package:coffee_shop/src/common_widgets/error_message_widget.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_center.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:coffee_shop/src/constants/app_sizes.dart';
@@ -17,17 +18,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key, required this.productId});
+
   final String productId;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const HomeAppBar(),
-        body: Consumer(
-          builder: (context, ref, _) {
-            final productsRepository = ref.watch(productRepositoryProvider);
-            final product = productsRepository.getProduct(productId);
-            return product == null
+      appBar: const HomeAppBar(),
+      body: Consumer(
+        builder: (context, ref, _) {
+          final productValue = ref.watch(productProvider(productId));
+          return productValue.when(
+            data: (product) => product == null
                 ? EmptyPlaceholderWidget(
                     message: 'Product not found'.hardcoded,
                   )
@@ -39,9 +41,19 @@ class ProductScreen extends StatelessWidget {
                       ),
                       ProductReviewsList(productId: productId),
                     ],
-                  );
-          },
-        ));
+                  ),
+            error: (e, st) => Center(
+              child: ErrorMessageWidget(
+                e.toString(),
+              ),
+            ),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
 
