@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coffee_shop/src/constants/test_products.dart';
 import 'package:coffee_shop/src/features/products/domain/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,7 +45,9 @@ final productsListFutureProvider = FutureProvider<List<Product>>((ref) {
   return productRepository.fetchProductsList();
 });
 
-final productProvider = StreamProvider.family<Product?, String>((ref, id) {
-  final productRepository = ref.watch(productRepositoryProvider);
-  return productRepository.watchProduct(id);
-});
+final productProvider = StreamProvider.autoDispose.family<Product?, String>(
+  (ref, id) {
+    final productRepository = ref.watch(productRepositoryProvider);
+    return productRepository.watchProduct(id);
+  },
+);
