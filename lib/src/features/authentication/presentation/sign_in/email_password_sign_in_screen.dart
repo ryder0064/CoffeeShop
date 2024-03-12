@@ -17,6 +17,7 @@ import 'package:go_router/go_router.dart';
 /// [AppBar] with a title.
 class EmailPasswordSignInScreen extends StatelessWidget {
   const EmailPasswordSignInScreen({super.key, required this.formType});
+
   final EmailPasswordSignInFormType formType;
 
   // * Keys for testing using find.byKey()
@@ -44,10 +45,12 @@ class EmailPasswordSignInContents extends ConsumerStatefulWidget {
     this.onSignedIn,
     required this.formType,
   });
+
   final VoidCallback? onSignedIn;
 
   /// The default form type to use.
   final EmailPasswordSignInFormType formType;
+
   @override
   ConsumerState<EmailPasswordSignInContents> createState() =>
       _EmailPasswordSignInContentsState();
@@ -61,6 +64,7 @@ class _EmailPasswordSignInContentsState
   final _passwordController = TextEditingController();
 
   String get email => _emailController.text;
+
   String get password => _passwordController.text;
 
   // local variable used to apply AutovalidateMode.onUserInteraction and show
@@ -116,12 +120,13 @@ class _EmailPasswordSignInContentsState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<EmailPasswordSignInState>(
-      emailPasswordSignInControllerProvider(widget.formType),
-          (_, state) => state.value.showAlertDialogOnError(context),
+    ref.listen<AsyncValue>(
+      emailPasswordSignInControllerProvider(widget.formType)
+          .select((state) => state.value),
+      (_, state) => state.showAlertDialogOnError(context),
     );
     final state =
-    ref.watch(emailPasswordSignInControllerProvider(widget.formType));
+        ref.watch(emailPasswordSignInControllerProvider(widget.formType));
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,
@@ -142,7 +147,7 @@ class _EmailPasswordSignInContentsState
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
-                !_submitted ? null : state.emailErrorText(email ?? ''),
+                    !_submitted ? null : state.emailErrorText(email ?? ''),
                 autocorrect: false,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
