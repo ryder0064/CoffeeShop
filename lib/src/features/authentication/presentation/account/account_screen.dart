@@ -49,11 +49,12 @@ class AccountScreen extends ConsumerWidget {
                       defaultActionText: 'Logout'.hardcoded,
                     );
                     if (logout == true) {
-                      await ref
+                      final signOutSuccess = await ref
                           .read(accountScreenControllerProvider.notifier)
                           .signOut();
-                      // TODO: only pop on success
-                      // goRouter.pop();
+                      if (signOutSuccess) {
+                        goRouter.pop();
+                      }
                     }
                   },
           ),
