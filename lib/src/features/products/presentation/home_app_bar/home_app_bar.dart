@@ -1,25 +1,26 @@
 import 'package:coffee_shop/src/common_widgets/action_text_button.dart';
 import 'package:coffee_shop/src/constants/breakpoints.dart';
-import 'package:coffee_shop/src/features/authentication/domain/app_user.dart';
+import 'package:coffee_shop/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:coffee_shop/src/features/products/presentation/home_app_bar/more_menu_button.dart';
 import 'package:coffee_shop/src/features/products/presentation/home_app_bar/shopping_cart_icon.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:coffee_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    const user = AppUser(uid: '123', email: 'test@test.com');
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authStateChangesProvider).value;
     final screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth < Breakpoint.tablet) {
       return AppBar(
         title: Text('Coffee Shop'.hardcoded),
-        actions: const [
-          ShoppingCartIcon(),
+        actions: [
+          const ShoppingCartIcon(),
           MoreMenuButton(user: user),
         ],
       );
