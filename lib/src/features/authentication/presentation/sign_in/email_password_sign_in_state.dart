@@ -1,6 +1,7 @@
 import 'package:coffee_shop/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum EmailPasswordSignInFormType { signIn, register }
 
@@ -16,26 +17,13 @@ mixin EmailAndPasswordValidators {
 class EmailPasswordSignInState with EmailAndPasswordValidators {
   EmailPasswordSignInState({
     this.formType = EmailPasswordSignInFormType.signIn,
-    this.isLoading = false,
+    this.value = const AsyncValue.data(null),
   });
 
   final EmailPasswordSignInFormType formType;
-  final bool isLoading;
+  final AsyncValue<void> value;
 
-  EmailPasswordSignInState copyWith({
-    EmailPasswordSignInFormType? formType,
-    bool? isLoading,
-  }) {
-    return EmailPasswordSignInState(
-      formType: formType ?? this.formType,
-      isLoading: isLoading ?? this.isLoading,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'EmailPasswordSignInState{formType: $formType, isLoading: $isLoading}';
-  }
+  bool get isLoading => value.isLoading;
 
   @override
   bool operator ==(Object other) =>
@@ -43,10 +31,25 @@ class EmailPasswordSignInState with EmailAndPasswordValidators {
       other is EmailPasswordSignInState &&
           runtimeType == other.runtimeType &&
           formType == other.formType &&
-          isLoading == other.isLoading;
+          value == other.value;
 
   @override
-  int get hashCode => formType.hashCode ^ isLoading.hashCode;
+  int get hashCode => formType.hashCode ^ value.hashCode;
+
+  @override
+  String toString() {
+    return 'EmailPasswordSignInState{formType: $formType, value: $value}';
+  }
+
+  EmailPasswordSignInState copyWith({
+    EmailPasswordSignInFormType? formType,
+    AsyncValue<void>? value,
+  }) {
+    return EmailPasswordSignInState(
+      formType: formType ?? this.formType,
+      value: value ?? this.value,
+    );
+  }
 }
 
 extension EmailPasswordSignInStateX on EmailPasswordSignInState {
