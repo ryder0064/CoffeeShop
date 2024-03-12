@@ -60,7 +60,7 @@ class _EmailPasswordSignInContentsState
   String get email => _emailController.text;
   String get password => _passwordController.text;
 
-  // local variable used to apply AutovalidateMode.onUserInteraction and show
+  // local variable used to apply AutoValidateMode.onUserInteraction and show
   // error hints only when the form has been submitted
   // For more details on how this is implemented, see:
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/

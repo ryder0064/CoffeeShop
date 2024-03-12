@@ -1,5 +1,6 @@
 import 'package:coffee_shop/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
+import 'package:flutter/foundation.dart';
 
 enum EmailPasswordSignInFormType { signIn, register }
 
@@ -11,6 +12,7 @@ mixin EmailAndPasswordValidators {
       NonEmptyStringValidator();
 }
 
+@immutable
 class EmailPasswordSignInState with EmailAndPasswordValidators {
   EmailPasswordSignInState({
     this.formType = EmailPasswordSignInFormType.signIn,
@@ -32,22 +34,19 @@ class EmailPasswordSignInState with EmailAndPasswordValidators {
 
   @override
   String toString() {
-    return 'EmailPasswordSignInState(formType: $formType, isLoading: $isLoading)';
+    return 'EmailPasswordSignInState{formType: $formType, isLoading: $isLoading}';
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is EmailPasswordSignInState &&
-        other.formType == formType &&
-        other.isLoading == isLoading;
-  }
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EmailPasswordSignInState &&
+          runtimeType == other.runtimeType &&
+          formType == other.formType &&
+          isLoading == other.isLoading;
 
   @override
-  int get hashCode {
-    return formType.hashCode ^ isLoading.hashCode;
-  }
+  int get hashCode => formType.hashCode ^ isLoading.hashCode;
 }
 
 extension EmailPasswordSignInStateX on EmailPasswordSignInState {
