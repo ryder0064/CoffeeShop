@@ -3,13 +3,11 @@ import 'package:coffee_shop/src/common_widgets/alert_dialogs.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_center.dart';
 import 'package:coffee_shop/src/constants/app_sizes.dart';
 import 'package:coffee_shop/src/features/authentication/data/fake_auth_repository.dart';
-import 'package:coffee_shop/src/features/authentication/domain/app_user.dart';
 import 'package:coffee_shop/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:coffee_shop/src/utils/async_value_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
@@ -32,10 +30,6 @@ class AccountScreen extends ConsumerWidget {
             onPressed: state.isLoading
                 ? null
                 : () async {
-                    // * Get the navigator beforehand to prevent this warning:
-                    // * Don't use 'BuildContext's across async gaps.
-                    // * More info here: https://youtu.be/bzWaMpD1LHY
-                    final goRouter = GoRouter.of(context);
                     final logout = await showAlertDialog(
                       context: context,
                       title: 'Are you sure?'.hardcoded,
@@ -43,12 +37,9 @@ class AccountScreen extends ConsumerWidget {
                       defaultActionText: 'Logout'.hardcoded,
                     );
                     if (logout == true) {
-                      final signOutSuccess = await ref
+                      ref
                           .read(accountScreenControllerProvider.notifier)
                           .signOut();
-                      if (signOutSuccess) {
-                        goRouter.pop();
-                      }
                     }
                   },
           ),

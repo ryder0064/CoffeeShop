@@ -8,6 +8,7 @@ import 'package:coffee_shop/src/features/orders/presentation/orders_list_screen.
 import 'package:coffee_shop/src/features/products/presentation/product_list/product_list_screen.dart';
 import 'package:coffee_shop/src/features/products/presentation/product_screen/product_screen.dart';
 import 'package:coffee_shop/src/features/reviews/presentation/leave_review_screen/leave_review_screen.dart';
+import 'package:coffee_shop/src/routing/go_router_refresh_stream.dart';
 import 'package:coffee_shop/src/routing/not_found_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,6 +44,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       }
       return null;
     },
+    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
       GoRoute(
         path: '/',
