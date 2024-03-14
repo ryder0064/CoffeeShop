@@ -10,4 +10,24 @@ void main() {
       kTestProducts,
     );
   });
+
+  test('getProduct(1) returns first item', () {
+    final productsRepository = FakeProductsRepository();
+    expect(
+      productsRepository.getProduct('1'),
+      kTestProducts[0],
+    );
+  });
+
+  /*
+  * Note that if a function throws, we should wrap it inside a closure, or use a method tear-off when possible.
+  * As described here: https://codewithandrea.com/tips/flutter-test-expect-tear-off/
+  * */
+  test('getProduct(100) returns null', () {
+    final productsRepository = FakeProductsRepository();
+    expect(
+      () => productsRepository.getProduct('100'),
+      throwsStateError,
+    );
+  });
 }
