@@ -17,6 +17,7 @@ void main() {
       final authRepository = makeAuthRepository();
       expect(authRepository.currentUser, null);
       expect(authRepository.authStateChanges(), emits(null));
+      authRepository.dispose(); // cleanup
     });
 
     test('currentUser is not null after sign in', () async {
@@ -27,6 +28,7 @@ void main() {
       );
       expect(authRepository.currentUser, testUser);
       expect(authRepository.authStateChanges(), emits(testUser));
+      authRepository.dispose(); // cleanup
     });
 
     test('currentUser is not null after registration', () async {
@@ -37,6 +39,7 @@ void main() {
       );
       expect(authRepository.currentUser, testUser);
       expect(authRepository.authStateChanges(), emits(testUser));
+      authRepository.dispose(); // cleanup
     });
 
     test('currentUser is null after sign out', () async {
@@ -51,6 +54,7 @@ void main() {
       await authRepository.signOut();
       expect(authRepository.currentUser, null);
       expect(authRepository.authStateChanges(), emits(null));
+      authRepository.dispose(); // cleanup
     });
 
     test('sign in after dispose throws exception', () {
