@@ -7,12 +7,17 @@ import 'package:mocktail/mocktail.dart';
 class MockAuthRepository extends Mock implements FakeAuthRepository {}
 
 void main() {
+  late MockAuthRepository authRepository;
+  late AccountScreenController controller;
+  setUp(() {
+    authRepository = MockAuthRepository();
+    controller = AccountScreenController(
+      authRepository: authRepository,
+    );
+  });
+
   group('AccountScreenController', () {
     test('initial state is AsyncValue.data', () {
-      final authRepository = MockAuthRepository();
-      final controller = AccountScreenController(
-        authRepository: authRepository,
-      );
       verifyNever(authRepository.signOut);
       expect(controller.state, const AsyncData<void>(null));
     });
@@ -27,12 +32,8 @@ void main() {
       'signOut success',
       () async {
         // setup
-        final authRepository = MockAuthRepository();
         when(authRepository.signOut).thenAnswer(
           (_) => Future.value(),
-        );
-        final controller = AccountScreenController(
-          authRepository: authRepository,
         );
 
         // Streams emit values over time, meaning that by the time we call expect, all the values have already been emitted, and it's too late to check them.
@@ -56,12 +57,8 @@ void main() {
       'signOut failure',
       () async {
         // setup
-        final authRepository = MockAuthRepository();
         final exception = Exception('Connection failed');
         when(authRepository.signOut).thenThrow(exception);
-        final controller = AccountScreenController(
-          authRepository: authRepository,
-        );
 
         // AsyncValue.guard will capture both the exception and the stack trace when creating the output AsyncError state.
         // But on our test we can't create an expected value with a matching stack trace, so we need to test with predicates.
