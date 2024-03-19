@@ -1,3 +1,4 @@
+@Timeout(Duration(milliseconds: 500))
 import 'package:coffee_shop/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:coffee_shop/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -51,7 +52,6 @@ void main() {
         // verify
         verify(authRepository.signOut).called(1);
       },
-      timeout: const Timeout(Duration(milliseconds: 500)),
     );
     test(
       'signOut failure',
@@ -78,7 +78,6 @@ void main() {
         // verify
         verify(authRepository.signOut).called(1);
       },
-      timeout: const Timeout(Duration(milliseconds: 500)),
     );
   });
 }

@@ -1,3 +1,4 @@
+@Timeout(Duration(milliseconds: 500))
 import 'package:coffee_shop/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart';
 import 'package:coffee_shop/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,7 +49,6 @@ void main() {
         // verify
         expect(result, true);
       },
-      timeout: const Timeout(Duration(milliseconds: 500)),
     );
     test(
       '''
@@ -89,7 +89,6 @@ void main() {
         // verify
         expect(result, false);
       },
-      timeout: const Timeout(Duration(milliseconds: 500)),
     );
   });
 
@@ -130,7 +129,6 @@ void main() {
       // verify
       expect(result, true);
     },
-    timeout: const Timeout(Duration(milliseconds: 500)),
   );
   test(
     '''
@@ -171,7 +169,6 @@ void main() {
       // verify
       expect(result, false);
     },
-    timeout: const Timeout(Duration(milliseconds: 500)),
   );
 
   group('updateFormType', () {
