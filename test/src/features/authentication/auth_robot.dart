@@ -1,4 +1,5 @@
 import 'package:coffee_shop/src/common_widgets/alert_dialogs.dart';
+import 'package:coffee_shop/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:coffee_shop/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,8 +11,15 @@ class AuthRobot {
 
   final WidgetTester tester;
 
-  Future<void> pumpAccountScreen() async {
+  Future<void> pumpAccountScreen({FakeAuthRepository? authRepository}) async {
     await tester.pumpWidget(ProviderScope(
+      // To mock a dependency that is returned by a provider, we need to use a provider override
+      overrides: [
+        if (authRepository != null)
+          authRepositoryProvider.overrideWithValue(
+            authRepository,
+          )
+      ],
       child: MaterialApp.router(
         routerConfig: GoRouter(initialLocation: '/', routes: [
           GoRoute(
@@ -54,5 +62,15 @@ class AuthRobot {
     expect(logoutButton, findsOneWidget);
     await tester.tap(logoutButton);
     await tester.pump();
+  }
+
+  void expectErrorAlertFound() {
+    final finder = find.text('Error');
+    expect(finder, findsOneWidget);
+  }
+
+  void expectErrorAlertNotFound() {
+    final finder = find.text('Error');
+    expect(finder, findsNothing);
   }
 }
