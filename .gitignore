@@ -45,3 +45,6 @@ app.*.map.json
 
 # Ignore test coverage data
 /coverage/lcov.info
+/ios/Podfile
+/macos/Podfile
+/macos/Podfile.lock
