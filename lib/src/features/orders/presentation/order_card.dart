@@ -1,12 +1,13 @@
 import 'package:coffee_shop/src/constants/app_sizes.dart';
+import 'package:coffee_shop/src/features/cart/domain/item.dart';
+import 'package:coffee_shop/src/features/orders/domain/order.dart';
 import 'package:coffee_shop/src/features/orders/presentation/order_item_list_tile.dart';
 import 'package:coffee_shop/src/features/orders/presentation/order_status_label.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
-import 'package:coffee_shop/src/features/cart/domain/item.dart';
-import 'package:coffee_shop/src/features/orders/domain/order.dart';
 import 'package:coffee_shop/src/utils/currency_formatter.dart';
 import 'package:coffee_shop/src/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key, required this.order});
@@ -32,17 +33,17 @@ class OrderCard extends StatelessWidget {
   }
 }
 
-class OrderHeader extends StatelessWidget {
+class OrderHeader extends ConsumerWidget {
   const OrderHeader({super.key, required this.order});
 
   final Order order;
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: Inject currency formatter
-    final totalFormatted = kCurrencyFormatter.format(order.total);
-    // TODO: Inject date formatter
-    final dateFormatted = kDateFormatter.format(order.orderDate);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final totalFormatted =
+        ref.watch(currencyFormatterProvider).format(order.total);
+    final dateFormatted =
+        ref.watch(dateFormatterProvider).format(order.orderDate);
     return Container(
       color: Colors.grey[200],
       padding: const EdgeInsets.all(Sizes.p16),

@@ -1,25 +1,26 @@
 import 'package:coffee_shop/src/common_widgets/custom_text_button.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:coffee_shop/src/constants/app_sizes.dart';
-import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:coffee_shop/src/features/orders/domain/purchase.dart';
+import 'package:coffee_shop/src/localization/string_hardcoded.dart';
 import 'package:coffee_shop/src/routing/app_router.dart';
 import 'package:coffee_shop/src/utils/date_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class LeaveReviewAction extends StatelessWidget {
+class LeaveReviewAction extends ConsumerWidget {
   const LeaveReviewAction({super.key, required this.productId});
 
   final String productId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // TODO: Read from data source
     final purchase = Purchase(orderId: 'abc', orderDate: DateTime.now());
     if (purchase != null) {
-      // TODO: Inject date formatter
-      final dateFormatted = kDateFormatter.format(purchase.orderDate);
+      final dateFormatted =
+          ref.watch(dateFormatterProvider).format(purchase.orderDate);
       return Column(
         children: [
           const Divider(),
