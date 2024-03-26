@@ -1,3 +1,4 @@
+import 'package:coffee_shop/src/features/cart/data/local/sembast_cart_repository.dart';
 import 'package:coffee_shop/src/features/cart/domain/cart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,7 +11,7 @@ abstract class LocalCartRepository {
   Future<void> setCart(Cart cart);
 }
 
-final localCartRepositoryProvider = Provider<LocalCartRepository>((ref) {
-  // * Override this in the main method
-  throw UnimplementedError();
+final localCartRepositoryProvider = FutureProvider<LocalCartRepository>((ref) {
+  // Declare it inside a FutureProvider
+  return SembastCartRepository.makeDefault();
 });
