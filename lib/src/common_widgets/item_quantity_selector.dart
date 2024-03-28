@@ -5,7 +5,7 @@ class ItemQuantitySelector extends StatelessWidget {
   const ItemQuantitySelector({
     super.key,
     required this.quantity,
-    this.maxQuantity = 999,
+    this.maxQuantity = 99,
     this.itemIndex,
     this.onChanged,
   });

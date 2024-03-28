@@ -134,7 +134,7 @@ class EditOrRemoveItemWidget extends ConsumerWidget {
       children: [
         ItemQuantitySelector(
           quantity: item.quantity,
-          maxQuantity: min(product.availableQuantity, 999),
+          maxQuantity: min(product.availableQuantity, 99),
           itemIndex: itemIndex,
           onChanged: state.isLoading
               ? null
