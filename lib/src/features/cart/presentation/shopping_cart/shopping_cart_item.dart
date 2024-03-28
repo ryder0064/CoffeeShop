@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:coffee_shop/src/common_widgets/alert_dialogs.dart';
 import 'package:coffee_shop/src/common_widgets/async_value_widget.dart';
 import 'package:coffee_shop/src/common_widgets/custom_image.dart';
@@ -131,7 +133,7 @@ class EditOrRemoveItemWidget extends ConsumerWidget {
       children: [
         ItemQuantitySelector(
           quantity: item.quantity,
-          maxQuantity: 999,
+          maxQuantity: min(product.availableQuantity, 999),
           itemIndex: itemIndex,
           // TODO: Implement onChanged
           onChanged: (value) {

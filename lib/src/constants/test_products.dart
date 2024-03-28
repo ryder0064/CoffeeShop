@@ -8,6 +8,7 @@ const kTestProducts = [
     title: 'Americano',
     description: 'Lorem ipsum',
     price: 40,
+    availableQuantity: 5,
     avgRating: 4.5,
     numRatings: 2,
   ),
@@ -17,6 +18,7 @@ const kTestProducts = [
     title: 'Cappuccino',
     description: 'Lorem ipsum',
     price: 50,
+    availableQuantity: 5,
     avgRating: 4,
     numRatings: 2,
   ),
@@ -26,6 +28,7 @@ const kTestProducts = [
     title: 'Caramel Macchiato',
     description: 'Lorem ipsum',
     price: 55,
+    availableQuantity: 5,
     avgRating: 5,
     numRatings: 2,
   ),
@@ -35,6 +38,7 @@ const kTestProducts = [
     title: 'Coffee Latte',
     description: 'Lorem ipsum',
     price: 60,
+    availableQuantity: 5,
   ),
   Product(
     id: '5',
@@ -42,6 +46,7 @@ const kTestProducts = [
     title: 'Colombia Huila',
     description: 'Lorem ipsum',
     price: 60,
+    availableQuantity: 5,
   ),
   Product(
     id: '6',
@@ -49,6 +54,7 @@ const kTestProducts = [
     title: 'Espresso',
     description: 'Lorem ipsum',
     price: 50,
+    availableQuantity: 5,
   ),
   Product(
     id: '7',
@@ -56,6 +62,7 @@ const kTestProducts = [
     title: 'Flavored Coffee Brown Sugar',
     description: 'Lorem ipsum',
     price: 60,
+    availableQuantity: 5,
   ),
   Product(
     id: '8',
@@ -63,6 +70,7 @@ const kTestProducts = [
     title: 'Flavored Coffee Hazelnut',
     description: 'Lorem ipsum',
     price: 60,
+    availableQuantity: 5,
   ),
   Product(
     id: '9',
@@ -70,6 +78,7 @@ const kTestProducts = [
     title: 'Flavored Coffee Vanilla',
     description: 'Lorem ipsum',
     price: 60,
+    availableQuantity: 5,
   ),
   Product(
     id: '10',
@@ -77,6 +86,7 @@ const kTestProducts = [
     title: 'Golden Mandheling',
     description: 'Lorem ipsum',
     price: 65,
+    availableQuantity: 5,
   ),
   Product(
     id: '11',
@@ -84,6 +94,7 @@ const kTestProducts = [
     title: 'Milk Tea Coffee',
     description: 'Lorem ipsum',
     price: 50,
+    availableQuantity: 5,
   ),
   Product(
     id: '12',
@@ -91,6 +102,7 @@ const kTestProducts = [
     title: 'Mochacino',
     description: 'Lorem ipsum',
     price: 55,
+    availableQuantity: 5,
   ),
   Product(
     id: '13',
@@ -98,6 +110,7 @@ const kTestProducts = [
     title: 'Specialty Americano',
     description: 'Lorem ipsum',
     price: 65,
+    availableQuantity: 5,
   ),
   Product(
     id: '14',
@@ -105,5 +118,6 @@ const kTestProducts = [
     title: 'Specialty Coffee Latte',
     description: 'Lorem ipsum',
     price: 70,
+    availableQuantity: 5,
   ),
 ];
