@@ -1,12 +1,12 @@
 import 'dart:math';
 
-import 'package:coffee_shop/src/common_widgets/alert_dialogs.dart';
 import 'package:coffee_shop/src/common_widgets/async_value_widget.dart';
 import 'package:coffee_shop/src/common_widgets/custom_image.dart';
 import 'package:coffee_shop/src/common_widgets/item_quantity_selector.dart';
 import 'package:coffee_shop/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:coffee_shop/src/constants/app_sizes.dart';
 import 'package:coffee_shop/src/features/cart/domain/item.dart';
+import 'package:coffee_shop/src/features/cart/presentation/shopping_cart/shopping_cart_screen_controller.dart';
 import 'package:coffee_shop/src/features/products/data/fake_products_repository.dart';
 import 'package:coffee_shop/src/features/products/domain/product.dart';
 import 'package:coffee_shop/src/localization/string_hardcoded.dart';
@@ -128,6 +128,7 @@ class EditOrRemoveItemWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(shoppingCartScreenControllerProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -135,18 +136,20 @@ class EditOrRemoveItemWidget extends ConsumerWidget {
           quantity: item.quantity,
           maxQuantity: min(product.availableQuantity, 999),
           itemIndex: itemIndex,
-          // TODO: Implement onChanged
-          onChanged: (value) {
-            showNotImplementedAlertDialog(context: context);
-          },
+          onChanged: state.isLoading
+              ? null
+              : (quantity) => ref
+                  .read(shoppingCartScreenControllerProvider.notifier)
+                  .updateItemQuantity(item.productId, quantity),
         ),
         IconButton(
           key: deleteKey(itemIndex),
           icon: Icon(Icons.delete, color: Colors.red[700]),
-          // TODO: Implement onPressed
-          onPressed: () {
-            showNotImplementedAlertDialog(context: context);
-          },
+          onPressed: state.isLoading
+              ? null
+              : () => ref
+                  .read(shoppingCartScreenControllerProvider.notifier)
+                  .removeItemById(item.productId),
         ),
         const Spacer(),
       ],
